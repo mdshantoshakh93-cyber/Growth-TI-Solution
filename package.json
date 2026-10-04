@@ -1,0 +1,22 @@
+{
+  "name": "growth-it-solution",
+  "version": "1.0.0",
+  "description": "Full-Stack Enterprise Web Application & Infrastructure for Growth IT Solution",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "backend": "node backend/server.js",
+    "dev": "node backend/server.js",
+    "test": "node backend/test.js"
+  },
+  "keywords": [
+    "growth-it",
+    "cloud",
+    "devops",
+    "ai",
+    "fullstack",
+    "javascript"
+  ],
+  "author": "Growth IT Solution Team",
+  "license": "MIT"
+}

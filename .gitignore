@@ -1,0 +1,4 @@
+node_modules/
+*.log
+database/growth_it.db
+.DS_Store

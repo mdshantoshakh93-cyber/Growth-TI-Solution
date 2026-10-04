@@ -1,0 +1,19 @@
+{
+  "name": "growth-it-solution-backend",
+  "version": "1.0.0",
+  "description": "REST API Server for Growth IT Solution",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "express",
+    "growth-it",
+    "api",
+    "fullstack"
+  ],
+  "author": "Growth IT Solution",
+  "license": "ISC"
+}
