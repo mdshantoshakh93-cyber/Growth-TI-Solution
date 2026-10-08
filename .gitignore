@@ -1,4 +1,11 @@
 node_modules/
+server/node_modules/
+.next/
 *.log
+.env
+.env.local
+server/.env
 database/growth_it.db
 .DS_Store
+dist/
+

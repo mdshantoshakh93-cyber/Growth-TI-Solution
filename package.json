@@ -1,21 +1,46 @@
 {
   "name": "growth-it-solution",
-  "version": "1.0.0",
-  "description": "Full-Stack Enterprise Web Application & Infrastructure for Growth IT Solution",
-  "main": "backend/server.js",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Next-Generation Full-Stack Enterprise Platform & IT Solutions Engine for Growth IT Solution",
   "scripts": {
     "start": "node backend/server.js",
-    "backend": "node backend/server.js",
+    "dev:backend": "node backend/server.js",
+    "dev:admin": "vite",
     "dev": "node backend/server.js",
-    "test": "node backend/test.js"
+    "build": "vite build",
+    "test": "node backend/test-auth.js",
+    "test-legacy": "node backend/test.js",
+    "seed-admin": "node backend/seedAdmin.js"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.10.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@tanstack/react-query": "^5.67.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.0.0",
+    "lucide-react": "^0.475.0",
+    "next": "^15.1.0",
+    "postcss": "^8.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-router-dom": "^7.3.0",
+    "recharts": "^2.15.1",
+    "tailwind-merge": "^3.0.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.2.1",
+    "zod": "^3.24.2"
   },
   "keywords": [
     "growth-it",
+    "react",
+    "vite",
     "cloud",
     "devops",
-    "ai",
-    "fullstack",
-    "javascript"
+    "ai-agents",
+    "fullstack"
   ],
   "author": "Growth IT Solution Team",
   "license": "MIT"

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Growth IT Solution</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Bar -->
+    <header class="admin-header">
+        <div class="header-container">
+            <a href="/" class="brand-logo">
+                <span class="brand-badge">GROWTH IT</span>
+                <span class="brand-title">Enterprise Admin Portal</span>
+            </a>
+            <div id="headerUserNav" class="user-status-bar hidden">
+                <span id="userRoleBadge" class="role-badge">ROLE</span>
+                <span id="userEmailSpan" style="font-weight: 600; color: #F8FAFC;">user@growthit.com</span>
+                <button id="logoutBtn" class="btn btn-danger" style="padding: 6px 12px; font-size: 0.85rem;">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="admin-main">
+        <!-- ALERT CONTAINER -->
+        <div id="globalAlert" class="alert hidden"></div>
+
+        <!-- SECTION 1: AUTHENTICATION / LOGIN FORM -->
+        <section id="authSection" class="glass-card auth-container">
+            <h2 class="form-title">Admin Login</h2>
+            <p class="form-subtitle">Sign in to access your Growth IT Solution role management console.</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="admin@growthit.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••••••" required>
+                </div>
+                <button type="submit" id="loginSubmitBtn" class="btn btn-primary" style="width: 100%;">
+                    Authenticate Account
+                </button>
+            </form>
+
+            <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.825rem; color: var(--text-muted);">
+                <strong style="color: var(--text-heading);">Development Credentials:</strong><br>
+                • <code>superadmin@growthit.com</code> / <code>SuperAdminSecret2026!</code><br>
+                • <code>admin@growthit.com</code> / <code>AdminPass2026!</code><br>
+                • <code>editor@growthit.com</code> / <code>EditorPass2026!</code><br>
+                • <code>content@growthit.com</code> / <code>ContentPass2026!</code>
+            </div>
+        </section>
+
+        <!-- SECTION 2: LOGGED-IN ADMIN DASHBOARD -->
+        <section id="dashboardSection" class="hidden">
+            <!-- NAV TABS -->
+            <div class="nav-tabs">
+                <button class="tab-btn active" data-tab="tabProfile">Profile & Session</button>
+                <button class="tab-btn" data-tab="tabOperations">Role Operations</button>
+                <button class="tab-btn" data-tab="tabPassword">Change Password</button>
+                <button class="tab-btn" data-tab="tabTestPermissions">Authorization Tester</button>
+            </div>
+
+            <!-- TAB 1: PROFILE & CURRENT USER -->
+            <div id="tabProfile" class="tab-content">
+                <div class="grid-2">
+                    <div class="glass-card">
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Current User Details</h3>
+                        <p><strong>Full Name:</strong> <span id="profileName">-</span></p>
+                        <p style="margin-top: 8px;"><strong>Email:</strong> <span id="profileEmail">-</span></p>
+                        <p style="margin-top: 8px;"><strong>Role:</strong> <span id="profileRoleBadge" class="role-badge">-</span></p>
+                        <p style="margin-top: 8px;"><strong>Account Status:</strong> <span id="profileStatus" style="color: var(--accent-emerald); font-weight: 600;">active</span></p>
+                        <p style="margin-top: 8px;"><strong>Created:</strong> <span id="profileCreated">-</span></p>
+                    </div>
+
+                    <div class="glass-card">
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Active Role Permissions</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            Enforced by backend authorization middleware:
+                        </p>
+                        <div id="profilePermissionsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: ROLE OPERATIONS -->
+            <div id="tabOperations" class="tab-content hidden">
+                <!-- SUPER_ADMIN: User Management -->
+                <div id="rolePanelSuperAdmin" class="glass-card hidden">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">SUPER_ADMIN: Create Administrative User</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Create new platform administrators, editors, or content managers.</p>
+                    
+                    <form id="createUserForm" class="grid-2" style="align-items: end;">
+                        <div class="form-group">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="newUserName" class="form-input" placeholder="Sarah Connor" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" id="newUserEmail" class="form-input" placeholder="sarah@growthit.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" id="newUserPassword" class="form-input" placeholder="Minimum 8 characters" required minlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Assigned Role</label>
+                            <select id="newUserRole" class="form-select" required>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="EDITOR">EDITOR</option>
+                                <option value="CONTENT_MANAGER">CONTENT_MANAGER</option>
+                                <option value="SUPER_ADMIN">SUPER_ADMIN</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button type="submit" class="btn btn-primary">Create User Account</button>
+                        </div>
+                    </form>
+
+                    <h4 style="color: var(--text-heading); margin-top: 2rem; margin-bottom: 1rem;">System User Roster</h4>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ADMIN: Service & Project Management -->
+                <div id="rolePanelAdmin" class="glass-card hidden">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">ADMIN: Manage Services & Projects</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Add website services and case studies.</p>
+                    
+                    <form id="createServiceForm" class="grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Service Title</label>
+                            <input type="text" id="srvTitle" class="form-input" placeholder="Quantum Encryption Security" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Category</label>
+                            <input type="text" id="srvCategory" class="form-input" placeholder="Security & Compliance" required>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <button type="submit" class="btn btn-primary">Add Service</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- EDITOR: Blog Management -->
+                <div id="rolePanelEditor" class="glass-card hidden">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">EDITOR: Blog & Page Management</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Publish and manage technical blog posts and documentation.</p>
+                    
+                    <form id="createBlogForm">
+                        <div class="form-group">
+                            <label class="form-label">Blog Post Title</label>
+                            <input type="text" id="blogTitle" class="form-input" placeholder="Best Practices for Zero-Downtime Microservices" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Publish Post</button>
+                    </form>
+                </div>
+
+                <!-- CONTENT_MANAGER: Assigned Content -->
+                <div id="rolePanelContentManager" class="glass-card hidden">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">CONTENT_MANAGER: Assigned Content</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update assigned promotional and marketing content.</p>
+                    
+                    <form id="createContentForm">
+                        <div class="form-group">
+                            <label class="form-label">Content Title</label>
+                            <input type="text" id="cntTitle" class="form-input" placeholder="Q4 Enterprise AI Case Study Update" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Assigned Content</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 3: CHANGE PASSWORD -->
+            <div id="tabPassword" class="tab-content hidden">
+                <div class="glass-card" style="max-width: 500px;">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">Change Password</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update your account password. All existing active sessions will be invalidated.</p>
+                    
+                    <form id="changePasswordForm">
+                        <div class="form-group">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" id="currPassword" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">New Password</label>
+                            <input type="password" id="newPassword" class="form-input" required minlength="8">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirmNewPassword" class="form-input" required minlength="8">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB 4: AUTHORIZATION TESTER -->
+            <div id="tabTestPermissions" class="tab-content hidden">
+                <div class="glass-card">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">Backend Authorization Middleware Tester</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+                        Click each button to issue a live REST request to the backend. The backend strictly enforces permissions.
+                    </p>
+
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem;">
+                        <button id="testBtnSuperAdmin" class="btn btn-secondary">Test GET /api/admin/users (SUPER_ADMIN)</button>
+                        <button id="testBtnAdmin" class="btn btn-secondary">Test POST /api/admin/services (ADMIN+)</button>
+                        <button id="testBtnEditor" class="btn btn-secondary">Test POST /api/admin/blogs (EDITOR+)</button>
+                        <button id="testBtnContent" class="btn btn-secondary">Test POST /api/admin/assigned-content (CONTENT_MANAGER+)</button>
+                    </div>
+
+                    <div style="background: #090D16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+                        <strong style="color: var(--text-heading); display: block; margin-bottom: 0.5rem;">API Response Log:</strong>
+                        <pre id="apiTestResultLog" style="color: #38BDF8; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; margin: 0;">Click a button above to test authorization middleware.</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>

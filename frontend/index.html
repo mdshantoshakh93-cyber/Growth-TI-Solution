@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Growth IT Solution | Next-Gen Enterprise IT, Cloud & AI Engineering</title>
-    <meta name="description" content="Growth IT Solution architects scalable cloud infrastructure, custom enterprise AI models, cybersecurity, and modern software engineering for high-growth enterprises.">
+    <meta name="description"
+        content="Growth IT Solution architects scalable cloud infrastructure, custom enterprise AI models, cybersecurity, and modern software engineering for high-growth enterprises.">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="assets/logo.jpg">
 </head>
+
 <body>
 
     <!-- NAVBAR -->
@@ -34,6 +37,7 @@
                     <span id="apiStatusText">Connecting API...</span>
                 </div>
                 <button class="btn btn-secondary" id="themeToggleBtn" aria-label="Toggle Theme">🌙</button>
+                <a href="/admin/login" class="btn btn-secondary" style="font-weight: 600;">Admin Login</a>
                 <a href="#estimator" class="btn btn-primary">Get Estimate</a>
             </div>
         </div>
@@ -45,13 +49,14 @@
             <div class="hero-badge">
                 <span>🚀 AI-Native & Multi-Cloud Architecture</span>
             </div>
-            
+
             <h1 class="hero-title">
                 Architecting High-Growth <span class="gradient-text">Digital Infrastructure</span>
             </h1>
 
             <p class="hero-subtitle">
-                We empower Fortune 500s and scaling tech innovators with enterprise Cloud DevOps, custom AI models, bulletproof Zero-Trust cybersecurity, and high-performance software.
+                We empower Fortune 500s and scaling tech innovators with enterprise Cloud DevOps, custom AI models,
+                bulletproof Zero-Trust cybersecurity, and high-performance software.
             </p>
 
             <div class="hero-ctas">
@@ -61,11 +66,6 @@
                 </a>
                 <a href="#portfolio" class="btn btn-secondary">Explore Case Studies</a>
             </div>
-
-            <div class="hero-visual">
-                <img src="assets/hero_graphic.jpg" alt="Growth IT Architecture Diagram">
-            </div>
-
             <!-- STATS COUNTER -->
             <div class="stats-grid">
                 <div class="stat-card">
@@ -94,18 +94,20 @@
             <div class="section-header text-center">
                 <span class="section-tag">Instant Estimator</span>
                 <h2 class="section-title">Project Scope & Budget Calculator</h2>
-                <p class="section-description">Select your project parameters to receive a real-time budget range and completion timeline estimate.</p>
+                <p class="section-description">Select your project parameters to receive a real-time budget range and
+                    completion timeline estimate.</p>
             </div>
 
             <div class="estimator-card">
                 <div class="estimator-grid">
                     <div class="estimator-controls">
-                        
+
                         <!-- Step 1: Category -->
                         <div class="form-group">
                             <label class="form-label">1. Select Primary Service</label>
                             <div class="option-cards-group" id="serviceOptions">
-                                <div class="option-card selected" data-value="Cloud Infrastructure">☁️ Cloud & DevOps</div>
+                                <div class="option-card selected" data-value="Cloud Infrastructure">☁️ Cloud & DevOps
+                                </div>
                                 <div class="option-card" data-value="Artificial Intelligence">🤖 AI & ML</div>
                                 <div class="option-card" data-value="Software Engineering">💻 Web & Mobile</div>
                                 <div class="option-card" data-value="Security & Compliance">🛡️ Cybersecurity</div>
@@ -148,7 +150,8 @@
                         <div>
                             <span class="section-tag">Estimated Budget</span>
                             <div class="result-price-tag" id="estimatedPrice">$5,000</div>
-                            <p class="text-muted" style="font-size: 0.9rem;">Estimated Timeline: <strong id="estimatedTimeline" style="color: var(--primary-cyan);">4 - 6 Weeks</strong></p>
+                            <p class="text-muted" style="font-size: 0.9rem;">Estimated Timeline: <strong
+                                    id="estimatedTimeline" style="color: var(--primary-cyan);">4 - 6 Weeks</strong></p>
                         </div>
 
                         <form id="estimatorForm" style="margin-top: 24px;">
@@ -156,7 +159,8 @@
                                 <input type="text" id="estName" class="input-field" placeholder="Your Name *" required>
                             </div>
                             <div class="form-group" style="margin-bottom: 16px;">
-                                <input type="email" id="estEmail" class="input-field" placeholder="Work Email *" required>
+                                <input type="email" id="estEmail" class="input-field" placeholder="Work Email *"
+                                    required>
                             </div>
                             <button type="submit" class="btn btn-primary" style="width: 100%;">
                                 Submit Inquiry & Reserve Slot
@@ -174,7 +178,8 @@
             <div class="section-header text-center">
                 <span class="section-tag">Core Capabilities</span>
                 <h2 class="section-title">Enterprise IT Engineering Services</h2>
-                <p class="section-description">Tailored end-to-end technology solutions engineered for maximum resilience, performance, and revenue growth.</p>
+                <p class="section-description">Tailored end-to-end technology solutions engineered for maximum
+                    resilience, performance, and revenue growth.</p>
             </div>
 
             <div class="services-grid" id="servicesGrid">
@@ -189,7 +194,8 @@
             <div class="section-header text-center">
                 <span class="section-tag">Proven Impact</span>
                 <h2 class="section-title">Featured Client Success Stories</h2>
-                <p class="section-description">Explore how our architectures solved complex scalability and security challenges across industries.</p>
+                <p class="section-description">Explore how our architectures solved complex scalability and security
+                    challenges across industries.</p>
             </div>
 
             <div class="filter-bar" id="portfolioFilterBar">
@@ -211,7 +217,8 @@
             <div class="section-header">
                 <span class="section-tag">Technology Ecosystem</span>
                 <h2 class="section-title">State-of-the-Art Tech Stack</h2>
-                <p class="section-description">We leverage modern open-source standards and enterprise cloud providers.</p>
+                <p class="section-description">We leverage modern open-source standards and enterprise cloud providers.
+                </p>
             </div>
 
             <div class="services-grid">
@@ -224,13 +231,15 @@
                 <div class="service-card">
                     <div class="service-icon-box">🤖</div>
                     <h3 class="service-title">AI & Data Pipeline</h3>
-                    <p class="service-desc">PyTorch, TensorFlow, OpenAI, Gemini API, LangChain, Kafka, Snowflake, dbt.</p>
+                    <p class="service-desc">PyTorch, TensorFlow, OpenAI, Gemini API, LangChain, Kafka, Snowflake, dbt.
+                    </p>
                 </div>
 
                 <div class="service-card">
                     <div class="service-icon-box">💻</div>
                     <h3 class="service-title">Full-Stack Web & Mobile</h3>
-                    <p class="service-desc">React, Next.js, Node.js, Express, Python FastAPI, PostgreSQL, Redis, Flutter.</p>
+                    <p class="service-desc">React, Next.js, Node.js, Express, Python FastAPI, PostgreSQL, Redis,
+                        Flutter.</p>
                 </div>
             </div>
         </div>
@@ -243,7 +252,8 @@
                 <div>
                     <span class="section-tag">Let's Connect</span>
                     <h2 class="section-title">Ready to Elevate Your IT Infrastructure?</h2>
-                    <p class="section-description" style="margin-bottom: 32px;">Schedule a free 30-minute architectural consultation with one of our principal engineers.</p>
+                    <p class="section-description" style="margin-bottom: 32px;">Schedule a free 30-minute architectural
+                        consultation with one of our principal engineers.</p>
 
                     <div style="margin-bottom: 24px;">
                         <h4 style="color: var(--primary-cyan); margin-bottom: 6px;">📍 Global Headquarters</h4>
@@ -268,13 +278,16 @@
                             <input type="text" id="contactName" class="input-field" placeholder="Full Name *" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="contactEmail" class="input-field" placeholder="Email Address *" required>
+                            <input type="email" id="contactEmail" class="input-field" placeholder="Email Address *"
+                                required>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="contactSubject" class="input-field" placeholder="Subject / Service Interest *" required>
+                            <input type="text" id="contactSubject" class="input-field"
+                                placeholder="Subject / Service Interest *" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="contactMessage" class="input-field" placeholder="Tell us about your project requirements..." required></textarea>
+                            <textarea id="contactMessage" class="input-field"
+                                placeholder="Tell us about your project requirements..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
                             Send Consultation Request
@@ -294,7 +307,8 @@
                         <img src="assets/logo.jpg" alt="Logo" class="logo-img">
                         <span class="logo-text">Growth<span class="gradient-text">IT</span></span>
                     </a>
-                    <p class="footer-desc">Architecting resilient, high-speed, and secure digital platforms for high-growth enterprises worldwide.</p>
+                    <p class="footer-desc">Architecting resilient, high-speed, and secure digital platforms for
+                        high-growth enterprises worldwide.</p>
                 </div>
 
                 <div>
@@ -314,21 +328,25 @@
                         <li><a href="#portfolio">Case Studies</a></li>
                         <li><a href="#estimator">Estimator</a></li>
                         <li><a href="#contact">Contact</a></li>
+                        <li><a href="/admin/login" style="color: #6366f1; font-weight: 600;">Admin Login</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="footer-title">Stay Updated</h4>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">Subscribe to our quarterly IT Architecture & AI insights.</p>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 16px;">Subscribe to our
+                        quarterly IT Architecture & AI insights.</p>
                     <form id="newsletterForm" style="display: flex; gap: 8px;">
-                        <input type="email" id="newsletterEmail" class="input-field" placeholder="Enter work email" required>
+                        <input type="email" id="newsletterEmail" class="input-field" placeholder="Enter work email"
+                            required>
                         <button type="submit" class="btn btn-primary" style="padding: 10px 18px;">Join</button>
                     </form>
                 </div>
             </div>
 
             <div class="copyright">
-                <p>&copy; 2026 Growth IT Solution Inc. All rights reserved. Built with precision and modern web standards.</p>
+                <p>&copy; 2026 Growth IT Solution Inc. All rights reserved. Built with precision and modern web
+                    standards.</p>
             </div>
         </div>
     </footer>
@@ -338,4 +356,5 @@
 
     <script src="app.js"></script>
 </body>
+
 </html>
