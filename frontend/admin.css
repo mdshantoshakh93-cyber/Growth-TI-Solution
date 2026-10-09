@@ -320,3 +320,23 @@ body {
 .hidden {
     display: none !important;
 }
+
+/* Switch Toggle Component */
+.switch-toggle input:checked + .toggle-slider {
+    background-color: var(--primary) !important;
+    box-shadow: 0 0 12px var(--primary-glow);
+}
+.switch-toggle input:checked + .toggle-slider:before {
+    transform: translateX(24px);
+}
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+}

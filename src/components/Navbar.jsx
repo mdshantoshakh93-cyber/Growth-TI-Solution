@@ -52,15 +52,8 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* Right CTA & Health Indicator */}
+        {/* Right CTA */}
         <div className="hidden md:flex items-center space-x-4">
-          {/* Health Badge */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-slate-800 text-xs">
-            <span className={`w-2 h-2 rounded-full ${health?.status === 'online' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
-            <span className="text-gray-300 font-mono">
-              {health?.status === 'online' ? 'API Online' : 'Connecting...'}
-            </span>
-          </div>
 
           <Link
             href="#estimator"

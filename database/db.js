@@ -29,6 +29,7 @@ class DatabaseStore {
             navigation: [],
             seo: [],
             activity_logs: [],
+            website_demos: [],
             settings: {}
         };
         this.init();
@@ -65,6 +66,15 @@ class DatabaseStore {
                 full_name: 'System Super Admin',
                 email: superAdminEmail,
                 password_hash: bcrypt.hashPassword(superAdminPassword, 10),
+                role: 'SUPER_ADMIN',
+                status: 'active',
+                created_at: new Date().toISOString()
+            },
+            {
+                id: 'usr-superadmin-002',
+                full_name: 'Super Admin',
+                email: 'superadmin@growthit.com',
+                password_hash: bcrypt.hashPassword('SuperAdminSecret2026!', 10),
                 role: 'SUPER_ADMIN',
                 status: 'active',
                 created_at: new Date().toISOString()
@@ -334,8 +344,8 @@ class DatabaseStore {
             {
                 id: 'tem-001',
                 name: 'Alexander Wright',
-                role: 'Chief Executive Officer',
-                bio: '15+ years leading enterprise digital transformations and cloud architecture migrations.',
+                role: 'Chief Executive Officer & Cloud Architect',
+                bio: '15+ years leading enterprise digital transformations and multi-cloud architecture migrations.',
                 photo_url: 'assets/hero_graphic.jpg',
                 linkedin: 'https://linkedin.com',
                 github: 'https://github.com'
@@ -343,11 +353,73 @@ class DatabaseStore {
             {
                 id: 'tem-002',
                 name: 'Dr. Sophia Chen',
-                role: 'Head of AI Research',
-                bio: 'Former AI researcher specializing in RAG architectures and autonomous agent systems.',
+                role: 'Head of AI & Machine Learning',
+                bio: 'Specializing in enterprise LLM fine-tuning, RAG vector indexing, and autonomous AI agents.',
                 photo_url: 'assets/hero_graphic.jpg',
                 linkedin: 'https://linkedin.com',
                 github: 'https://github.com'
+            },
+            {
+                id: 'tem-003',
+                name: 'Marcus Vance',
+                role: 'Principal Full-Stack Engineer',
+                bio: 'Expert in high-concurrency microservices, Next.js edge caching, and scalable GraphQL APIs.',
+                photo_url: 'assets/hero_graphic.jpg',
+                linkedin: 'https://linkedin.com',
+                github: 'https://github.com'
+            },
+            {
+                id: 'tem-004',
+                name: 'Elena Rostova',
+                role: 'VP of Product & UI/UX Design',
+                bio: 'Architecting world-class user experiences, modern glassmorphism UI design, and design systems.',
+                photo_url: 'assets/hero_graphic.jpg',
+                linkedin: 'https://linkedin.com',
+                github: 'https://github.com'
+            }
+        ];
+
+        // --- 8.5. WEBSITE DEMOS ---
+        this.inMemoryData.website_demos = [
+            {
+                id: 'demo-001',
+                title: 'Global E-Commerce Storefront',
+                category: 'E-Commerce',
+                description: 'High-conversion online shopping platform with instant live search, cart management, and payment gateway.',
+                preview_url: 'https://www.ecomdrivebd.com',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['Next.js', 'Stripe', 'Tailwind', 'Fast Checkout'],
+                featured: true
+            },
+            {
+                id: 'demo-002',
+                title: 'Enterprise SaaS Admin Portal',
+                category: 'SaaS',
+                description: 'Real-time analytics dashboard with user role management, data charts, and dark mode theme.',
+                preview_url: '/admin.html',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['React', 'Node.js', 'Chart.js', 'REST API'],
+                featured: true
+            },
+            {
+                id: 'demo-003',
+                title: 'HealthTech Diagnostic Portal',
+                category: 'Healthcare',
+                description: 'Patient management system with online appointment booking, doctor directory, and diagnostic reports.',
+                preview_url: '#',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['HIPAA Compliant', 'AI Vision', 'Telehealth'],
+                featured: true
+            },
+            {
+                id: 'demo-004',
+                title: 'Corporate Digital Agency Suite',
+                category: 'Corporate',
+                description: 'Sleek corporate portfolio with dynamic service showcase, video backgrounds, and cost calculator.',
+                preview_url: '/',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['Glassmorphism', 'SEO Optimized', 'Fast Load'],
+                featured: true
             }
         ];
 
@@ -487,15 +559,26 @@ class DatabaseStore {
                 google_verification: 'google-site-verification-code-12345'
             },
 
-            // Homepage Content
+            // Homepage Content & Mobile Phone Demo Showcase
             hero_badge: 'Next-Gen Enterprise IT Engine & AI Solutions',
             hero_heading: 'Grow Your Business With Smart Technology',
             hero_description: 'Growth IT Solution provides innovative software, web, mobile and digital solutions that help businesses grow faster, work smarter and operate more efficiently.',
             hero_image: 'assets/hero_graphic.jpg',
+            hero_video: 'https://res.cloudinary.com/hvil3kt2/video/upload/v1791551107/flow-edf2d753-6ac4-4a20-a2c5-.mp4',
             hero_cta_primary_label: 'Get Started',
             hero_cta_primary_url: '/contact',
             hero_cta_secondary_label: 'Explore Services',
             hero_cta_secondary_url: '/services',
+
+            // 3D Phone Demo Showcase Settings
+            hero_phone_demo_enabled: true,
+            hero_phone_brand: 'Growth IT',
+            hero_phone_growth_val: '$24,850.00',
+            hero_phone_badge: 'LIVE DEMO',
+            hero_phone_service1_title: 'Cloud DevOps',
+            hero_phone_service1_status: '99.99% Uptime',
+            hero_phone_service2_title: 'AI Engine',
+            hero_phone_service2_status: 'Active',
 
             stats_projects: '150+',
             stats_clients: '98%',
@@ -529,7 +612,8 @@ class DatabaseStore {
     // --- USER MANAGEMENT ---
     getUserByEmail(email) {
         if (!email) return null;
-        return this.inMemoryData.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        const target = email.trim().toLowerCase();
+        return this.inMemoryData.users.find(u => u.email.trim().toLowerCase() === target);
     }
 
     getUserById(id) {
@@ -673,6 +757,11 @@ class DatabaseStore {
     // --- PUBLIC API METHODS ---
     getServices() {
         return this.inMemoryData.services;
+    }
+
+    getWebsiteDemos(category) {
+        if (!category || category === 'All') return this.inMemoryData.website_demos;
+        return (this.inMemoryData.website_demos || []).filter(d => d.category === category);
     }
 
     getPortfolio(category) {

@@ -48,10 +48,11 @@
 
             <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.825rem; color: var(--text-muted);">
                 <strong style="color: var(--text-heading);">Development Credentials:</strong><br>
-                • <code>superadmin@growthit.com</code> / <code>SuperAdminSecret2026!</code><br>
-                • <code>admin@growthit.com</code> / <code>AdminPass2026!</code><br>
-                • <code>editor@growthit.com</code> / <code>EditorPass2026!</code><br>
-                • <code>content@growthit.com</code> / <code>ContentPass2026!</code>
+                • <code>superadmin@growthit.com</code> / <code>SuperAdminSecret2026!</code> (Super Admin)<br>
+                • <code>growthitsolution@gmail.com</code> / <code>growthitsolution123</code> (Super Admin)<br>
+                • <code>admin@growthit.com</code> / <code>AdminPass2026!</code> (Admin)<br>
+                • <code>editor@growthit.com</code> / <code>EditorPass2026!</code> (Editor)<br>
+                • <code>content@growthit.com</code> / <code>ContentPass2026!</code> (Content Manager)
             </div>
         </section>
 
@@ -61,6 +62,7 @@
             <div class="nav-tabs">
                 <button class="tab-btn active" data-tab="tabProfile">Profile & Session</button>
                 <button class="tab-btn" data-tab="tabOperations">Role Operations</button>
+                <button class="tab-btn" data-tab="tabPhoneDemo">📱 Phone Showcase</button>
                 <button class="tab-btn" data-tab="tabPassword">Change Password</button>
                 <button class="tab-btn" data-tab="tabTestPermissions">Authorization Tester</button>
             </div>
@@ -182,6 +184,65 @@
                             <input type="text" id="cntTitle" class="form-input" placeholder="Q4 Enterprise AI Case Study Update" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Assigned Content</button>
+                    </form>
+                </div>
+            <!-- TAB: PHONE DEMO SHOWCASE SETTINGS -->
+            <div id="tabPhoneDemo" class="tab-content hidden">
+                <div class="glass-card">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">
+                        <span>📱 Hero 3D Mobile Phone Showcase Control</span>
+                    </h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
+                        Add, remove (enable/disable) and edit the live 3D mobile phone demo showcase on the website hero section.
+                    </p>
+
+                    <form id="phoneDemoSettingsForm">
+                        <div style="background: rgba(56, 189, 248, 0.08); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-accent); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+                            <div>
+                                <strong style="color: var(--text-heading); display: block; font-size: 1.05rem;">Show / Enable Mobile Phone Demo</strong>
+                                <span style="font-size: 0.825rem; color: var(--text-muted);">Turn ON to show 3D phone on homepage, turn OFF to remove/hide phone option completely.</span>
+                            </div>
+                            <label class="switch-toggle" style="position: relative; display: inline-block; width: 56px; height: 30px; cursor: pointer;">
+                                <input type="checkbox" id="phoneDemoEnabledInput" style="opacity: 0; width: 0; height: 0;" checked>
+                                <span class="toggle-slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 34px;"></span>
+                            </label>
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Phone Header Brand Name</label>
+                                <input type="text" id="phoneBrandInput" class="form-input" placeholder="Growth IT">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Header Badge Label</label>
+                                <input type="text" id="phoneBadgeInput" class="form-input" placeholder="LIVE DEMO">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Main Card Growth Value</label>
+                                <input type="text" id="phoneGrowthInput" class="form-input" placeholder="$24,850.00">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Service 1 Title</label>
+                                <input type="text" id="phoneSrv1TitleInput" class="form-input" placeholder="Cloud DevOps">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Service 1 Status</label>
+                                <input type="text" id="phoneSrv1StatusInput" class="form-input" placeholder="99.99% Uptime">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Service 2 Title</label>
+                                <input type="text" id="phoneSrv2TitleInput" class="form-input" placeholder="AI Engine">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="form-label">Service 2 Status</label>
+                                <input type="text" id="phoneSrv2StatusInput" class="form-input" placeholder="Active">
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 12px; margin-top: 1.5rem; flex-wrap: wrap;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1; min-width: 200px;">Save Phone Settings</button>
+                            <button type="button" id="quickTogglePhoneBtn" class="btn btn-secondary" style="min-width: 200px;">⚡ Quick Hide / Show Toggle</button>
+                        </div>
                     </form>
                 </div>
             </div>

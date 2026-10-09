@@ -52,14 +52,27 @@ export function Home() {
     <div className="space-y-24 pb-20">
       {/* DYNAMIC HERO SECTION WITH BACKGROUND IMAGE */}
       <section className="relative pt-24 pb-20 overflow-hidden min-h-[640px] flex items-center justify-center">
-        {/* Professional Background Image Layer */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={settings.hero_image || 'assets/hero_graphic.jpg'}
-            alt="Enterprise Technology Infrastructure"
-            className="w-full h-full object-cover opacity-20 filter contrast-125 saturate-150 scale-105"
-            onError={(e) => { e.target.src = 'assets/hero_graphic.jpg'; }}
-          />
+        {/* Professional Background Video / Image Layer */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {settings.hero_video && settings.hero_video.includes('http') && !settings.hero_video.endsWith('.mp4') ? (
+            <iframe
+              src={settings.hero_video}
+              className="w-full h-full object-cover opacity-50 scale-125 border-0 pointer-events-none"
+              allow="autoplay; encrypted-media; fullscreen"
+              title="Hero Background Video"
+            />
+          ) : settings.hero_video ? (
+            <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-35">
+              <source src={settings.hero_video} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={settings.hero_image || 'assets/hero_graphic.jpg'}
+              alt="Enterprise Technology Infrastructure"
+              className="w-full h-full object-cover opacity-20 filter contrast-125 saturate-150 scale-105"
+              onError={(e) => { e.target.src = 'assets/hero_graphic.jpg'; }}
+            />
+          )}
           {/* Multi-layered Dark Gradient Masks */}
           <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/75 to-slate-950" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-transparent to-slate-950" />

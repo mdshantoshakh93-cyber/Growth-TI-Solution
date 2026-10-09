@@ -591,6 +591,11 @@ const server = http.createServer(async (req, res) => {
                 items = items.filter(p => p.status !== 'draft' && p.status !== 'archived');
                 return sendJson(res, 200, { success: true, count: items.length, data: items });
             }
+            if (pathname === '/api/website-demos' && method === 'GET') {
+                const category = parsedUrl.searchParams.get('category');
+                const demos = db.getWebsiteDemos(category);
+                return sendJson(res, 200, { success: true, count: demos.length, data: demos });
+            }
             if (pathname === '/api/blogs' && method === 'GET') {
                 const blogs = db.getCollection('blogs').filter(b => b.status === 'published' || b.status === undefined);
                 return sendJson(res, 200, { success: true, count: blogs.length, data: blogs });
@@ -644,17 +649,14 @@ const server = http.createServer(async (req, res) => {
 
     // --- STATIC FILES / FRONTEND SERVING ---
     let targetFilePath;
+    const relativePath = pathname === '/' ? 'index.html' : pathname;
+    const directFrontendFile = path.join(__dirname, '../frontend', relativePath);
+    const directDistFile = path.join(__dirname, '../dist', relativePath);
 
-    // Check for admin routes and static assets
-    if (pathname === '/admin.html') {
-        targetFilePath = path.join(__dirname, '../frontend/admin.html');
-    } else if (pathname.startsWith('/admin') || pathname === '/login' || pathname.startsWith('/login/')) {
-        const distIndexPath = path.join(__dirname, '../dist/index.html');
-        if (fs.existsSync(distIndexPath)) {
-            targetFilePath = distIndexPath;
-        } else {
-            targetFilePath = path.join(__dirname, '../frontend/admin.html');
-        }
+    if (fs.existsSync(directFrontendFile) && fs.statSync(directFrontendFile).isFile()) {
+        targetFilePath = directFrontendFile;
+    } else if (fs.existsSync(directDistFile) && fs.statSync(directDistFile).isFile()) {
+        targetFilePath = directDistFile;
     } else if (pathname.startsWith('/uploads/')) {
         const uploadFileName = path.basename(pathname);
         targetFilePath = path.join(__dirname, '../uploads', uploadFileName);
@@ -668,18 +670,15 @@ const server = http.createServer(async (req, res) => {
         } else {
             targetFilePath = path.join(__dirname, '..', pathname);
         }
-    } else {
-        const relativePath = pathname === '/' ? 'index.html' : pathname;
-        const frontendFilePath = path.join(__dirname, '../frontend', relativePath);
-        const distFilePath = path.join(__dirname, '../dist', relativePath);
-
-        if (fs.existsSync(frontendFilePath) && fs.statSync(frontendFilePath).isFile()) {
-            targetFilePath = frontendFilePath;
-        } else if (fs.existsSync(distFilePath) && fs.statSync(distFilePath).isFile()) {
-            targetFilePath = distFilePath;
+    } else if (pathname.startsWith('/admin') || pathname === '/login' || pathname.startsWith('/login/')) {
+        const distIndexPath = path.join(__dirname, '../dist/index.html');
+        if (fs.existsSync(distIndexPath)) {
+            targetFilePath = distIndexPath;
         } else {
-            targetFilePath = path.join(__dirname, '../frontend/index.html');
+            targetFilePath = path.join(__dirname, '../frontend/admin.html');
         }
+    } else {
+        targetFilePath = path.join(__dirname, '../frontend/index.html');
     }
 
     const ext = path.extname(targetFilePath).toLowerCase();

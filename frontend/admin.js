@@ -109,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user.role === 'SUPER_ADMIN') {
             loadUsersList();
         }
+
+        // Fetch Phone Demo Settings for admin panel
+        loadPhoneSettings();
     }
 
     // Fetch Users List (SUPER_ADMIN)
@@ -265,6 +268,69 @@ document.addEventListener('DOMContentLoaded', () => {
                 changePasswordForm.reset();
             } else {
                 showAlert(res.body.error || 'Failed to change password.', 'danger');
+            }
+        });
+    }
+
+    // Fetch and Populate Phone Demo Settings
+    async function loadPhoneSettings() {
+        const res = await apiRequest('/api/admin/settings');
+        if (res.ok && res.body.data) {
+            const settings = res.body.data;
+            const enabledInput = document.getElementById('phoneDemoEnabledInput');
+            const brandInput = document.getElementById('phoneBrandInput');
+            const badgeInput = document.getElementById('phoneBadgeInput');
+            const growthInput = document.getElementById('phoneGrowthInput');
+            const srv1TitleInput = document.getElementById('phoneSrv1TitleInput');
+            const srv1StatusInput = document.getElementById('phoneSrv1StatusInput');
+            const srv2TitleInput = document.getElementById('phoneSrv2TitleInput');
+            const srv2StatusInput = document.getElementById('phoneSrv2StatusInput');
+
+            if (enabledInput) enabledInput.checked = settings.hero_phone_demo_enabled !== false && settings.hero_phone_demo_enabled !== 'false';
+            if (brandInput) brandInput.value = settings.hero_phone_brand || 'Growth IT';
+            if (badgeInput) badgeInput.value = settings.hero_phone_badge || 'LIVE DEMO';
+            if (growthInput) growthInput.value = settings.hero_phone_growth_val || '$24,850.00';
+            if (srv1TitleInput) srv1TitleInput.value = settings.hero_phone_service1_title || 'Cloud DevOps';
+            if (srv1StatusInput) srv1StatusInput.value = settings.hero_phone_service1_status || '99.99% Uptime';
+            if (srv2TitleInput) srv2TitleInput.value = settings.hero_phone_service2_title || 'AI Engine';
+            if (srv2StatusInput) srv2StatusInput.value = settings.hero_phone_service2_status || 'Active';
+        }
+    }
+
+    // Save Phone Demo Settings Form
+    const phoneDemoSettingsForm = document.getElementById('phoneDemoSettingsForm');
+    if (phoneDemoSettingsForm) {
+        phoneDemoSettingsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const payload = {
+                hero_phone_demo_enabled: document.getElementById('phoneDemoEnabledInput').checked,
+                hero_phone_brand: document.getElementById('phoneBrandInput').value.trim() || 'Growth IT',
+                hero_phone_badge: document.getElementById('phoneBadgeInput').value.trim() || 'LIVE DEMO',
+                hero_phone_growth_val: document.getElementById('phoneGrowthInput').value.trim() || '$24,850.00',
+                hero_phone_service1_title: document.getElementById('phoneSrv1TitleInput').value.trim() || 'Cloud DevOps',
+                hero_phone_service1_status: document.getElementById('phoneSrv1StatusInput').value.trim() || '99.99% Uptime',
+                hero_phone_service2_title: document.getElementById('phoneSrv2TitleInput').value.trim() || 'AI Engine',
+                hero_phone_service2_status: document.getElementById('phoneSrv2StatusInput').value.trim() || 'Active'
+            };
+
+            const res = await apiRequest('/api/admin/settings', 'POST', payload);
+            if (res.ok && res.body.success) {
+                const statusMsg = payload.hero_phone_demo_enabled ? 'Mobile Phone Demo is now ENABLED on website hero!' : 'Mobile Phone Demo is now DISABLED/REMOVED from website hero!';
+                showAlert(`Settings Saved Successfully! ${statusMsg}`, 'success');
+            } else {
+                showAlert(res.body.error || 'Failed to save phone settings.', 'danger');
+            }
+        });
+    }
+
+    // Quick Toggle Button
+    const quickTogglePhoneBtn = document.getElementById('quickTogglePhoneBtn');
+    if (quickTogglePhoneBtn) {
+        quickTogglePhoneBtn.addEventListener('click', async () => {
+            const enabledInput = document.getElementById('phoneDemoEnabledInput');
+            if (enabledInput) {
+                enabledInput.checked = !enabledInput.checked;
+                phoneDemoSettingsForm.dispatchEvent(new Event('submit'));
             }
         });
     }
