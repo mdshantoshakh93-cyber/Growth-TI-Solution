@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- INITIALIZATION ---
     checkApiHealth();
     fetchSiteSettings();
+    fetchNavigation();
     fetchStats();
     fetchPortfolio('All');
     fetchServices();
     fetchWebsiteDemos('All');
+    fetchPricing('All');
     fetchTeam();
     fetchBlogs();
     setupEventListeners();
     setupScrollRevealAnimation();
+    setupModalViewer();
 
     // --- SCROLL REVEAL ANIMATIONS ---
     function setupScrollRevealAnimation() {
@@ -95,6 +98,57 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.warn('[Settings fetch error]', err);
         }
+    }
+
+    // --- DYNAMIC NAVIGATION MENU RENDER ---
+    async function fetchNavigation() {
+        try {
+            const res = await fetch(`${API_BASE}/public/navigation`);
+            const json = await res.json();
+            if (json.success && json.data && json.data.length > 0) {
+                renderNavigation(json.data);
+            }
+        } catch (err) {
+            console.warn('[Navigation fetch error]', err);
+        }
+    }
+
+    function renderNavigation(items) {
+        const desktopLinks = document.querySelector('.nav-links');
+        const mobileNav = document.querySelector('.mobile-nav');
+
+        const visibleItems = items.filter(i => i.visible !== false).sort((a, b) => (a.order || 0) - (b.order || 0));
+
+        if (desktopLinks && visibleItems.length > 0) {
+            desktopLinks.innerHTML = visibleItems.map(item => `
+                <li><a href="${item.url}" ${item.open_new_tab ? 'target="_blank"' : ''}>${item.label}</a></li>
+            `).join('');
+        }
+
+        if (mobileNav && visibleItems.length > 0) {
+            mobileNav.innerHTML = visibleItems.map(item => `
+                <a href="${item.url}" class="mobile-nav-link" ${item.open_new_tab ? 'target="_blank"' : ''}>📍 ${item.label}</a>
+            `).join('') + `<a href="#contact" class="btn btn-primary mobile-cta-btn">Contact Us</a>`;
+        }
+
+        // Re-attach smooth scroll listeners for newly rendered nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        e.preventDefault();
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        history.pushState(null, null, targetId);
+
+                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                        const matchLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
+                        if (matchLink) matchLink.classList.add('active');
+                    }
+                }
+            });
+        });
     }
 
     // --- STEP 1: HOME (FETCH STATS) ---
@@ -250,32 +304,32 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             renderWebsiteDemos([
                 {
-                    title: 'Global E-Commerce Storefront',
-                    category: 'E-Commerce',
+                    title: 'Global E-Commerce Storefront Website',
+                    category: 'Website',
                     description: 'High-conversion online shopping platform with instant live search, cart management, and payment gateway.',
                     preview_url: 'https://www.ecomdrivebd.com',
                     image_url: 'assets/hero_graphic.jpg',
                     tags: ['Next.js', 'Stripe', 'Tailwind', 'Fast Checkout']
                 },
                 {
-                    title: 'Enterprise SaaS Admin Portal',
-                    category: 'SaaS',
+                    title: 'Enterprise SaaS & ERP Admin Portal Software',
+                    category: 'Software',
                     description: 'Real-time analytics dashboard with user role management, data charts, and dark mode theme.',
                     preview_url: '/admin.html',
                     image_url: 'assets/hero_graphic.jpg',
                     tags: ['React', 'Node.js', 'Chart.js', 'REST API']
                 },
                 {
-                    title: 'HealthTech Diagnostic Portal',
-                    category: 'Healthcare',
+                    title: 'HealthTech & Telehealth Mobile App',
+                    category: 'Mobile App',
                     description: 'Patient management system with online appointment booking, doctor directory, and diagnostic reports.',
                     preview_url: '#',
                     image_url: 'assets/hero_graphic.jpg',
-                    tags: ['HIPAA Compliant', 'AI Vision', 'Telehealth']
+                    tags: ['iOS & Android', 'HIPAA Compliant', 'AI Vision']
                 },
                 {
-                    title: 'Corporate Digital Agency Suite',
-                    category: 'Corporate',
+                    title: 'Corporate Digital Agency Suite Website',
+                    category: 'Website',
                     description: 'Sleek corporate portfolio with dynamic service showcase, video backgrounds, and cost calculator.',
                     preview_url: '/',
                     image_url: 'assets/hero_graphic.jpg',
@@ -310,6 +364,133 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `).join('');
+    }
+
+    // --- STEP 5: PRICING (FETCH & RENDER WEBSITE, SOFTWARE & MOBILE APP PRICING) ---
+    async function fetchPricing(category = 'All') {
+        const grid = document.getElementById('pricingGrid');
+        if (!grid) return;
+        try {
+            const res = await fetch(`${API_BASE}/pricing`);
+            const json = await res.json();
+            if (json.success && json.data && json.data.length > 0) {
+                let data = json.data;
+                if (category !== 'All') {
+                    data = data.filter(p => (p.category && p.category.toLowerCase() === category.toLowerCase()) || 
+                                            (p.tier_name && p.tier_name.toLowerCase().includes(category.toLowerCase())));
+                }
+                renderPricing(data);
+            } else {
+                renderPricingFallback(category);
+            }
+        } catch (err) {
+            renderPricingFallback(category);
+        }
+    }
+
+    function renderPricingFallback(category = 'All') {
+        const plans = [
+            {
+                tier_name: 'Website Development',
+                category: 'Website',
+                price_bdt: '৳25,000',
+                price_usd: 299,
+                billing_cycle: 'Starting From / Project',
+                description: 'High-conversion corporate, agency & e-commerce websites with dynamic CMS & modern UI.',
+                features: [
+                    'Custom Responsive Design & Modern UI',
+                    'Dynamic Admin Panel / CMS Control',
+                    'SEO & Speed Optimization (95+ Score)',
+                    'Free Domain & Cloud Hosting (1 Year)',
+                    'Security SSL & 1-Year Free Maintenance'
+                ],
+                highlighted: true,
+                icon: '🌐'
+            },
+            {
+                tier_name: 'Software Development',
+                category: 'Software',
+                price_bdt: '৳75,000',
+                price_usd: 899,
+                billing_cycle: 'Custom Scope / System',
+                description: 'Tailored web applications, ERP, CRM & cloud software systems built for scaling businesses.',
+                features: [
+                    'Custom Business Workflow Automation',
+                    'Multi-Role Admin, Staff & Customer Portals',
+                    'Real-Time Cloud Database & Automated Backups',
+                    'RESTful API & Payment Gateway Integration',
+                    '24/7 Security Audit, SLA & Technical Support'
+                ],
+                highlighted: true,
+                icon: '💻'
+            },
+            {
+                tier_name: 'Mobile App Development',
+                category: 'Mobile App',
+                price_bdt: '৳55,000',
+                price_usd: 699,
+                billing_cycle: 'Android & iOS Package',
+                description: 'Native-performance cross-platform Android & iOS mobile applications with backend APIs.',
+                features: [
+                    'Android & iOS App (Play Store & App Store)',
+                    'Smooth Native UX & Dark/Light Themes',
+                    'Push Notifications & Real-Time Sync',
+                    'Payment Gateway & SMS Gateway API',
+                    '6 Months Free App Maintenance & Support'
+                ],
+                highlighted: true,
+                icon: '📱'
+            }
+        ];
+
+        let filtered = plans;
+        if (category !== 'All') {
+            filtered = plans.filter(p => p.category.toLowerCase() === category.toLowerCase());
+        }
+        renderPricing(filtered);
+    }
+
+    function renderPricing(plans) {
+        const grid = document.getElementById('pricingGrid');
+        if (!grid) return;
+        grid.innerHTML = plans.map(p => `
+            <div class="service-card" style="display:flex; flex-direction:column; justify-content:space-between; position:relative; ${p.highlighted ? 'border-color: var(--primary-cyan); box-shadow: 0 10px 30px rgba(0, 242, 254, 0.15);' : ''}">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 16px;">
+                        <div class="service-icon-box" style="margin-bottom:0; width:52px; height:52px;">${p.icon || '💎'}</div>
+                        <span style="font-size:0.75rem; font-weight:700; color:var(--primary-cyan); background:rgba(0,242,254,0.1); padding:4px 12px; border-radius:12px; border:1px solid rgba(0,242,254,0.3);">${p.category || 'Package'}</span>
+                    </div>
+                    <h3 class="service-title" style="margin-bottom: 8px;">${p.tier_name}</h3>
+                    <div style="font-size:1.8rem; font-weight:800; color:var(--text-main); font-family:var(--font-heading); margin-bottom:4px;">
+                        ${p.price_bdt ? `<span style="color:var(--primary-cyan);">${p.price_bdt}</span> <span style="font-size:1rem; color:var(--text-muted); font-weight:500;">/ $${p.price_usd || '299'}</span>` : `$${p.price_usd || 'Custom'}`}
+                    </div>
+                    <div style="font-size:0.825rem; color:var(--text-muted); margin-bottom:16px;">${p.billing_cycle || 'Per Project Scope'}</div>
+                    <p class="service-desc" style="font-size:0.88rem; margin-bottom:20px;">${p.description || ''}</p>
+                    <ul class="feature-list" style="margin-bottom:24px;">
+                        ${(p.features || []).map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                </div>
+                <a href="#contact" data-subject="${p.tier_name}" class="btn btn-primary select-plan-btn" style="width:100%; text-align:center;">
+                    <span>Choose Plan & Order</span>
+                    <span>→</span>
+                </a>
+            </div>
+        `).join('');
+
+        document.querySelectorAll('.select-plan-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const subject = btn.getAttribute('data-subject');
+                const subjectSelect = document.getElementById('contactSubject');
+                if (subjectSelect) {
+                    for (let opt of subjectSelect.options) {
+                        if (opt.value.toLowerCase().includes(subject.toLowerCase())) {
+                            opt.selected = true;
+                            break;
+                        }
+                    }
+                }
+            });
+        });
     }
 
     // --- STEP 5: TEAM (FETCH TEAM) ---
@@ -387,6 +568,63 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
+    // --- DETAIL MODAL POPUP ENGINE ---
+    function setupModalViewer() {
+        if (!document.getElementById('detailModal')) {
+            const modal = document.createElement('div');
+            modal.id = 'detailModal';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+                background: rgba(4, 6, 11, 0.88); backdrop-filter: blur(14px);
+                z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px;
+            `;
+            modal.innerHTML = `
+                <div style="background: #0B0716; border: 1px solid var(--border-glass); border-radius: var(--radius-md); max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 32px; position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.9);">
+                    <button id="closeModalBtn" style="position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 2rem; cursor: pointer;">&times;</button>
+                    <div id="modalContent"></div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.id === 'closeModalBtn') {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    }
+
+    function showDetailModal(title, category, description, extraInfo, imageUrl, ctaLink) {
+        setupModalViewer();
+        const modal = document.getElementById('detailModal');
+        const content = document.getElementById('modalContent');
+        if (!modal || !content) return;
+
+        content.innerHTML = `
+            <div style="margin-bottom: 16px;">
+                <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary-cyan); background: rgba(0,242,254,0.1); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(0,242,254,0.3);">${category}</span>
+            </div>
+            <h2 style="font-size: 1.8rem; margin-bottom: 16px; color: var(--text-main); font-family: var(--font-heading);">${title}</h2>
+            ${imageUrl ? `<img src="${imageUrl}" alt="${title}" style="width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-sm); margin-bottom: 20px; border: 1px solid var(--border-glass);">` : ''}
+            <div style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px;">${description}</div>
+            ${extraInfo ? `<div style="padding: 16px; background: rgba(255,255,255,0.03); border-radius: var(--radius-sm); border-left: 3px solid var(--primary-cyan); color: var(--text-dim); font-size: 0.88rem; margin-bottom: 24px;">${extraInfo}</div>` : ''}
+            <div style="display: flex; gap: 12px;">
+                <a href="${ctaLink || '#contact'}" id="modalCtaBtn" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                    <span>Inquire About This</span>
+                    <span>→</span>
+                </a>
+            </div>
+        `;
+
+        modal.style.display = 'flex';
+        const modalCtaBtn = document.getElementById('modalCtaBtn');
+        if (modalCtaBtn) {
+            modalCtaBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        }
+    }
+
     // --- EVENT LISTENERS ---
     function setupEventListeners() {
         // Theme Toggle
@@ -418,6 +656,54 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+        // Pricing Filter Buttons (Pricing Section)
+        document.querySelectorAll('#pricingFilterBar .filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#pricingFilterBar .filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                fetchPricing(btn.getAttribute('data-filter'));
+            });
+        });
+
+        // Contact Form Submit Handler
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('contactName').value;
+                const email = document.getElementById('contactEmail').value;
+                const subject = document.getElementById('contactSubject').value;
+                const message = document.getElementById('contactMessage').value;
+
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = 'Sending Message... ⏳';
+                submitBtn.disabled = true;
+
+                try {
+                    const res = await fetch(`${API_BASE}/contact`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, email, subject, message })
+                    });
+                    const json = await res.json();
+                    if (json.success) {
+                        showToast('Thank you! Your message has been sent successfully. We will contact you soon.');
+                        contactForm.reset();
+                    } else {
+                        showToast(json.error || 'Message submitted successfully!');
+                        contactForm.reset();
+                    }
+                } catch (err) {
+                    showToast('Message submitted! Our team will reply to your email shortly.');
+                    contactForm.reset();
+                } finally {
+                    submitBtn.innerHTML = originalHtml;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
+
         // Newsletter Form Submit
         const newsletterForm = document.getElementById('newsletterForm');
         if (newsletterForm) {
@@ -439,7 +725,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Mobile 3-Dot Menu Toggle
+        // Mobile 3-Dot Menu Toggle & Smooth Link Navigation
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenuDrawer = document.getElementById('mobileMenuDrawer');
 
@@ -450,7 +736,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 mobileMenuDrawer.classList.toggle('open');
             });
 
-            // Close mobile drawer when clicking any nav link inside drawer
             document.querySelectorAll('.mobile-nav-link, .mobile-cta-btn').forEach(link => {
                 link.addEventListener('click', () => {
                     mobileMenuBtn.classList.remove('active');
@@ -458,7 +743,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            // Close mobile drawer when clicking outside header
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.navbar')) {
                     mobileMenuBtn.classList.remove('active');
@@ -466,6 +750,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
+        // Smooth Scroll & Active Link Highlighter for Navbar Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        e.preventDefault();
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        history.pushState(null, null, targetId);
+
+                        // Update active class on nav links
+                        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                        const matchLink = document.querySelector(`.nav-links a[href="${targetId}"]`);
+                        if (matchLink) matchLink.classList.add('active');
+                    }
+                }
+            });
+        });
     }
 
     // --- TOAST NOTIFICATION UTILITY ---

@@ -34,22 +34,15 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-          <Link href="#services" className="hover:text-blue-400 transition-colors">
-            Services
-          </Link>
-          <Link href="#estimator" className="hover:text-blue-400 transition-colors flex items-center gap-1">
-            <span className="px-1.5 py-0.5 text-[10px] bg-blue-500/20 text-blue-400 rounded-md font-semibold border border-blue-500/30">
-              Tool
-            </span>
-            Cost Estimator
-          </Link>
-          <Link href="#portfolio" className="hover:text-blue-400 transition-colors">
-            Case Studies
-          </Link>
-          <Link href="#contact" className="hover:text-blue-400 transition-colors">
-            Consultation
-          </Link>
+        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-300">
+          <Link href="#hero" className="hover:text-blue-400 transition-colors">Home</Link>
+          <Link href="#project" className="hover:text-blue-400 transition-colors">Project</Link>
+          <Link href="#service" className="hover:text-blue-400 transition-colors">Service</Link>
+          <Link href="#websitedemo" className="hover:text-blue-400 transition-colors">Website Demo</Link>
+          <Link href="#pricing" className="hover:text-blue-400 transition-colors">Pricing</Link>
+          <Link href="#team" className="hover:text-blue-400 transition-colors">Team</Link>
+          <Link href="#blog" className="hover:text-blue-400 transition-colors">Blog</Link>
+          <Link href="#contact" className="hover:text-blue-400 transition-colors">Contact</Link>
         </nav>
 
         {/* Right CTA */}

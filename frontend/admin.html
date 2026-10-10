@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Portal - Growth IT Solution</title>
+    <title>Admin Portal & CMS - Growth IT Solution</title>
     <link rel="stylesheet" href="admin.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -11,11 +11,12 @@
     <!-- Header Bar -->
     <header class="admin-header">
         <div class="header-container">
-            <a href="/" class="brand-logo">
+            <a href="/" class="brand-logo" target="_blank">
                 <span class="brand-badge">GROWTH IT</span>
-                <span class="brand-title">Enterprise Admin Portal</span>
+                <span class="brand-title">Enterprise CMS & Admin Portal</span>
             </a>
             <div id="headerUserNav" class="user-status-bar hidden">
+                <a href="/" target="_blank" class="btn btn-secondary" style="padding: 6px 14px; font-size: 0.85rem;">🌐 View Live Site</a>
                 <span id="userRoleBadge" class="role-badge">ROLE</span>
                 <span id="userEmailSpan" style="font-weight: 600; color: #F8FAFC;">user@growthit.com</span>
                 <button id="logoutBtn" class="btn btn-danger" style="padding: 6px 12px; font-size: 0.85rem;">Logout</button>
@@ -29,8 +30,8 @@
 
         <!-- SECTION 1: AUTHENTICATION / LOGIN FORM -->
         <section id="authSection" class="glass-card auth-container">
-            <h2 class="form-title">Admin Login</h2>
-            <p class="form-subtitle">Sign in to access your Growth IT Solution role management console.</p>
+            <h2 class="form-title">Admin CMS Login</h2>
+            <p class="form-subtitle">Sign in to manage Growth IT Solution website navigation, projects, services, pricing, blogs, and settings.</p>
             
             <form id="loginForm">
                 <div class="form-group">
@@ -58,41 +59,356 @@
 
         <!-- SECTION 2: LOGGED-IN ADMIN DASHBOARD -->
         <section id="dashboardSection" class="hidden">
-            <!-- NAV TABS -->
-            <div class="nav-tabs">
-                <button class="tab-btn active" data-tab="tabProfile">Profile & Session</button>
-                <button class="tab-btn" data-tab="tabOperations">Role Operations</button>
-                <button class="tab-btn" data-tab="tabPhoneDemo">📱 Phone Showcase</button>
-                <button class="tab-btn" data-tab="tabPassword">Change Password</button>
-                <button class="tab-btn" data-tab="tabTestPermissions">Authorization Tester</button>
+            <!-- NAV TABS (Matching Main Website Header) -->
+            <div class="nav-tabs" style="overflow-x: auto; white-space: nowrap; display: flex; gap: 8px; padding-bottom: 8px; margin-bottom: 24px;">
+                <button class="tab-btn active" data-tab="tabOverview">🏠 Home</button>
+                <button class="tab-btn" data-tab="tabProjects">💼 Project</button>
+                <button class="tab-btn" data-tab="tabServices">⚡ Service</button>
+                <button class="tab-btn" data-tab="tabDemos">🌐 Website Demo</button>
+                <button class="tab-btn" data-tab="tabPricing">🏷️ Pricing</button>
+                <button class="tab-btn" data-tab="tabTeam">👥 Team</button>
+                <button class="tab-btn" data-tab="tabBlogs">📝 Blog</button>
+                <button class="tab-btn" data-tab="tabMessages">📞 Contact</button>
+                <button class="tab-btn" data-tab="tabSettings">⚙️ Settings & Navbar</button>
             </div>
 
-            <!-- TAB 1: PROFILE & CURRENT USER -->
-            <div id="tabProfile" class="tab-content">
+            <!-- TAB 1: OVERVIEW & DASHBOARD STATS -->
+            <div id="tabOverview" class="tab-content">
+                <div class="grid-4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;">
+                    <div class="glass-card" style="padding: 20px;">
+                        <span style="font-size: 0.825rem; color: var(--text-muted); font-weight: 600;">Total Projects</span>
+                        <h2 id="dashStatProjects" style="font-size: 2rem; color: var(--primary); margin-top: 4px;">0</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <span style="font-size: 0.825rem; color: var(--text-muted); font-weight: 600;">Total Services</span>
+                        <h2 id="dashStatServices" style="font-size: 2rem; color: var(--accent-purple); margin-top: 4px;">0</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <span style="font-size: 0.825rem; color: var(--text-muted); font-weight: 600;">Unread Messages</span>
+                        <h2 id="dashStatMessages" style="font-size: 2rem; color: var(--accent-amber); margin-top: 4px;">0</h2>
+                    </div>
+                    <div class="glass-card" style="padding: 20px;">
+                        <span style="font-size: 0.825rem; color: var(--text-muted); font-weight: 600;">Published Blogs</span>
+                        <h2 id="dashStatBlogs" style="font-size: 2rem; color: var(--accent-emerald); margin-top: 4px;">0</h2>
+                    </div>
+                </div>
+
                 <div class="grid-2">
                     <div class="glass-card">
-                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Current User Details</h3>
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Admin Profile Details</h3>
                         <p><strong>Full Name:</strong> <span id="profileName">-</span></p>
                         <p style="margin-top: 8px;"><strong>Email:</strong> <span id="profileEmail">-</span></p>
                         <p style="margin-top: 8px;"><strong>Role:</strong> <span id="profileRoleBadge" class="role-badge">-</span></p>
                         <p style="margin-top: 8px;"><strong>Account Status:</strong> <span id="profileStatus" style="color: var(--accent-emerald); font-weight: 600;">active</span></p>
-                        <p style="margin-top: 8px;"><strong>Created:</strong> <span id="profileCreated">-</span></p>
                     </div>
 
                     <div class="glass-card">
-                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Active Role Permissions</h3>
+                        <h3 style="color: var(--text-heading); margin-bottom: 1rem;">Active Authorization Permissions</h3>
                         <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">
-                            Enforced by backend authorization middleware:
+                            Enforced by server security middleware:
                         </p>
                         <div id="profilePermissionsList"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: ROLE OPERATIONS -->
-            <div id="tabOperations" class="tab-content hidden">
-                <!-- SUPER_ADMIN: User Management -->
-                <div id="rolePanelSuperAdmin" class="glass-card hidden">
+            <!-- TAB 3: PROJECTS MANAGER -->
+            <div id="tabProjects" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">💼 Projects & Portfolio Manager</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Manage client case studies, tech stack, challenges, and solutions.</p>
+                        </div>
+                        <button id="addProjectModalBtn" class="btn btn-primary">+ Add New Project</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Client / Industry</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: SERVICES MANAGER -->
+            <div id="tabServices" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">⚡ Enterprise Services Manager</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Add and update core technology capabilities, descriptions, and feature lists.</p>
+                        </div>
+                        <button id="addServiceModalBtn" class="btn btn-primary">+ Add New Service</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Category</th>
+                                    <th>Features Count</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="serviceTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: PRICING PLANS MANAGER -->
+            <div id="tabPricing" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">🏷️ Pricing Plans Manager (Website, Software, Mobile App)</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Manage pricing packages for Website, Software, and Mobile App Development.</p>
+                        </div>
+                        <button id="addPricingModalBtn" class="btn btn-primary">+ Add Pricing Package</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Tier Name</th>
+                                    <th>Category</th>
+                                    <th>Price BDT / USD</th>
+                                    <th>Billing Cycle</th>
+                                    <th>Highlighted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pricingTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: WEBSITE DEMOS MANAGER -->
+            <div id="tabDemos" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">🌐 Website Demos Manager</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Manage interactive live demo websites and industry previews.</p>
+                        </div>
+                        <button id="addDemoModalBtn" class="btn btn-primary">+ Add Website Demo</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Preview Link</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="demoTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 7: TEAM MANAGER -->
+            <div id="tabTeam" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">👥 Team Members Manager</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Manage leadership profiles, roles, photos, and biographies.</p>
+                        </div>
+                        <button id="addTeamModalBtn" class="btn btn-primary">+ Add Team Member</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Role / Position</th>
+                                    <th>Bio</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="teamTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 8: BLOG MANAGER -->
+            <div id="tabBlogs" class="tab-content hidden">
+                <div class="glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">📝 Technical Blog Posts Manager</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Publish technical articles, engineering insights, and news.</p>
+                        </div>
+                        <button id="addBlogModalBtn" class="btn btn-primary">+ Create New Article</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Article Title</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Read Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="blogTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 9: CONTACT MESSAGES INBOX -->
+            <div id="tabMessages" class="tab-content hidden">
+                <div class="glass-card">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">📩 Client Contact Messages & Quote Inquiries</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">View and manage project inquiries submitted from the website contact form.</p>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Sender Name</th>
+                                    <th>Email</th>
+                                    <th>Subject / Service</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="messageTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: GLOBAL SETTINGS & NAVBAR -->
+            <div id="tabSettings" class="tab-content hidden">
+                <!-- 1. DYNAMIC NAVBAR MANAGER -->
+                <div class="glass-card" style="margin-bottom: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h3 style="color: var(--text-heading);">🧭 Dynamic Navbar & Navigation Items</h3>
+                            <p style="color: var(--text-muted); font-size: 0.875rem;">Add, edit, reorder, or hide menu links displayed on the website top navigation bar.</p>
+                        </div>
+                        <button id="addNavModalBtn" class="btn btn-primary">+ Add New Menu Link</button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Order</th>
+                                    <th>Menu Label</th>
+                                    <th>Target URL</th>
+                                    <th>New Tab</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="navTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 2. GLOBAL BRANDING & HERO SETTINGS -->
+                <div class="glass-card" style="margin-bottom: 24px;">
+                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">⚙️ Global Site Settings & Branding</h3>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Control company details, official email, phone numbers, hero text, and 3D phone showcase.</p>
+
+                    <form id="globalSettingsForm">
+                        <h4 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">Company Identity & Contact Info</h4>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Company / Site Name</label>
+                                <input type="text" id="setCompanyName" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Support Email</label>
+                                <input type="email" id="setSupportEmail" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone & WhatsApp Number</label>
+                                <input type="text" id="setContactPhone" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Office Address</label>
+                                <input type="text" id="setOfficeAddress" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Working Hours</label>
+                                <input type="text" id="setBusinessHours" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Logo Path / URL</label>
+                                <input type="text" id="setLogoPath" class="form-input">
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">Hero Section Banners & Video</h4>
+                        <div class="grid-2">
+                            <div class="form-group">
+                                <label class="form-label">Hero Badge Text</label>
+                                <input type="text" id="setHeroBadge" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Hero Heading Title</label>
+                                <input type="text" id="setHeroHeading" class="form-input">
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="form-label">Hero Subtitle / Description</label>
+                                <textarea id="setHeroDescription" class="form-input" style="min-height: 80px;"></textarea>
+                            </div>
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label class="form-label">Hero Background Video URL</label>
+                                <input type="text" id="setHeroVideo" class="form-input">
+                            </div>
+                        </div>
+
+                        <h4 style="color: var(--primary); margin-top: 1.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 6px;">📱 Hero 3D Phone Showcase</h4>
+                        <div class="grid-2">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label style="display: flex; align-items: center; gap: 10px; color: var(--text-heading); font-weight: 600; cursor: pointer;">
+                                    <input type="checkbox" id="setPhoneDemoEnabled" style="width: 18px; height: 18px;">
+                                    <span>Show 3D Mobile Phone Showcase on Hero</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Brand Name</label>
+                                <input type="text" id="setPhoneBrand" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Growth Value</label>
+                                <input type="text" id="setPhoneGrowth" class="form-input">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 1.5rem; padding: 12px 28px;">Save All Site Settings</button>
+                    </form>
+                </div>
+
+                <!-- 3. USER ACCOUNTS & PASSWORD MANAGEMENT -->
+                <div id="rolePanelSuperAdmin" class="glass-card" style="margin-bottom: 24px;">
                     <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">SUPER_ADMIN: Create Administrative User</h3>
                     <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Create new platform administrators, editors, or content managers.</p>
                     
@@ -139,119 +455,9 @@
                     </div>
                 </div>
 
-                <!-- ADMIN: Service & Project Management -->
-                <div id="rolePanelAdmin" class="glass-card hidden">
-                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">ADMIN: Manage Services & Projects</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Add website services and case studies.</p>
-                    
-                    <form id="createServiceForm" class="grid-2">
-                        <div class="form-group">
-                            <label class="form-label">Service Title</label>
-                            <input type="text" id="srvTitle" class="form-input" placeholder="Quantum Encryption Security" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Category</label>
-                            <input type="text" id="srvCategory" class="form-input" placeholder="Security & Compliance" required>
-                        </div>
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <button type="submit" class="btn btn-primary">Add Service</button>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- EDITOR: Blog Management -->
-                <div id="rolePanelEditor" class="glass-card hidden">
-                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">EDITOR: Blog & Page Management</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Publish and manage technical blog posts and documentation.</p>
-                    
-                    <form id="createBlogForm">
-                        <div class="form-group">
-                            <label class="form-label">Blog Post Title</label>
-                            <input type="text" id="blogTitle" class="form-input" placeholder="Best Practices for Zero-Downtime Microservices" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Publish Post</button>
-                    </form>
-                </div>
-
-                <!-- CONTENT_MANAGER: Assigned Content -->
-                <div id="rolePanelContentManager" class="glass-card hidden">
-                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">CONTENT_MANAGER: Assigned Content</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update assigned promotional and marketing content.</p>
-                    
-                    <form id="createContentForm">
-                        <div class="form-group">
-                            <label class="form-label">Content Title</label>
-                            <input type="text" id="cntTitle" class="form-input" placeholder="Q4 Enterprise AI Case Study Update" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Update Assigned Content</button>
-                    </form>
-                </div>
-            <!-- TAB: PHONE DEMO SHOWCASE SETTINGS -->
-            <div id="tabPhoneDemo" class="tab-content hidden">
-                <div class="glass-card">
-                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 10px;">
-                        <span>📱 Hero 3D Mobile Phone Showcase Control</span>
-                    </h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-                        Add, remove (enable/disable) and edit the live 3D mobile phone demo showcase on the website hero section.
-                    </p>
-
-                    <form id="phoneDemoSettingsForm">
-                        <div style="background: rgba(56, 189, 248, 0.08); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-accent); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
-                            <div>
-                                <strong style="color: var(--text-heading); display: block; font-size: 1.05rem;">Show / Enable Mobile Phone Demo</strong>
-                                <span style="font-size: 0.825rem; color: var(--text-muted);">Turn ON to show 3D phone on homepage, turn OFF to remove/hide phone option completely.</span>
-                            </div>
-                            <label class="switch-toggle" style="position: relative; display: inline-block; width: 56px; height: 30px; cursor: pointer;">
-                                <input type="checkbox" id="phoneDemoEnabledInput" style="opacity: 0; width: 0; height: 0;" checked>
-                                <span class="toggle-slider" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #334155; transition: .3s; border-radius: 34px;"></span>
-                            </label>
-                        </div>
-
-                        <div class="grid-2">
-                            <div class="form-group">
-                                <label class="form-label">Phone Header Brand Name</label>
-                                <input type="text" id="phoneBrandInput" class="form-input" placeholder="Growth IT">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Header Badge Label</label>
-                                <input type="text" id="phoneBadgeInput" class="form-input" placeholder="LIVE DEMO">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Main Card Growth Value</label>
-                                <input type="text" id="phoneGrowthInput" class="form-input" placeholder="$24,850.00">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Service 1 Title</label>
-                                <input type="text" id="phoneSrv1TitleInput" class="form-input" placeholder="Cloud DevOps">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Service 1 Status</label>
-                                <input type="text" id="phoneSrv1StatusInput" class="form-input" placeholder="99.99% Uptime">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Service 2 Title</label>
-                                <input type="text" id="phoneSrv2TitleInput" class="form-input" placeholder="AI Engine">
-                            </div>
-                            <div class="form-group" style="grid-column: 1 / -1;">
-                                <label class="form-label">Service 2 Status</label>
-                                <input type="text" id="phoneSrv2StatusInput" class="form-input" placeholder="Active">
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 12px; margin-top: 1.5rem; flex-wrap: wrap;">
-                            <button type="submit" class="btn btn-primary" style="flex: 1; min-width: 200px;">Save Phone Settings</button>
-                            <button type="button" id="quickTogglePhoneBtn" class="btn btn-secondary" style="min-width: 200px;">⚡ Quick Hide / Show Toggle</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- TAB 3: CHANGE PASSWORD -->
-            <div id="tabPassword" class="tab-content hidden">
                 <div class="glass-card" style="max-width: 500px;">
                     <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">Change Password</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update your account password. All existing active sessions will be invalidated.</p>
+                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">Update your account password.</p>
                     
                     <form id="changePasswordForm">
                         <div class="form-group">
@@ -270,30 +476,17 @@
                     </form>
                 </div>
             </div>
-
-            <!-- TAB 4: AUTHORIZATION TESTER -->
-            <div id="tabTestPermissions" class="tab-content hidden">
-                <div class="glass-card">
-                    <h3 style="color: var(--text-heading); margin-bottom: 0.5rem;">Backend Authorization Middleware Tester</h3>
-                    <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem;">
-                        Click each button to issue a live REST request to the backend. The backend strictly enforces permissions.
-                    </p>
-
-                    <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem;">
-                        <button id="testBtnSuperAdmin" class="btn btn-secondary">Test GET /api/admin/users (SUPER_ADMIN)</button>
-                        <button id="testBtnAdmin" class="btn btn-secondary">Test POST /api/admin/services (ADMIN+)</button>
-                        <button id="testBtnEditor" class="btn btn-secondary">Test POST /api/admin/blogs (EDITOR+)</button>
-                        <button id="testBtnContent" class="btn btn-secondary">Test POST /api/admin/assigned-content (CONTENT_MANAGER+)</button>
-                    </div>
-
-                    <div style="background: #090D16; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
-                        <strong style="color: var(--text-heading); display: block; margin-bottom: 0.5rem;">API Response Log:</strong>
-                        <pre id="apiTestResultLog" style="color: #38BDF8; font-family: monospace; font-size: 0.85rem; white-space: pre-wrap; margin: 0;">Click a button above to test authorization middleware.</pre>
-                    </div>
-                </div>
-            </div>
         </section>
     </main>
+
+    <!-- GENERIC EDIT / ADD MODAL DIALOG -->
+    <div id="adminModal" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(4,6,11,0.85); backdrop-filter: blur(12px); z-index: 2500; display: none; align-items: center; justify-content: center; padding: 20px;">
+        <div style="background: #121828; border: 1px solid var(--border-color); border-radius: var(--radius-lg); max-width: 650px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 28px; position: relative;">
+            <button id="closeAdminModalBtn" style="position: absolute; top: 16px; right: 20px; background: transparent; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer;">&times;</button>
+            <h3 id="adminModalTitle" style="color: var(--text-heading); margin-bottom: 20px;">Edit Item</h3>
+            <div id="adminModalBody"></div>
+        </div>
+    </div>
 
     <script src="admin.js"></script>
 </body>

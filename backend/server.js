@@ -460,6 +460,7 @@ const server = http.createServer(async (req, res) => {
                 '/api/admin/media': 'media',
                 '/api/admin/pages': 'pages',
                 '/api/admin/navigation': 'navigation',
+                '/api/admin/website-demos': 'website_demos',
                 '/api/admin/seo': 'seo',
                 '/api/admin/users': 'users'
             };

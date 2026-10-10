@@ -295,31 +295,61 @@ class DatabaseStore {
             }
         ];
 
-        // --- 6. PRICING TIERS ---
+        // --- 6. PRICING PLANS (Website, Software & Mobile App) ---
         this.inMemoryData.pricing = [
             {
                 id: 'prc-001',
-                tier_name: 'Startup MVP Engine',
-                price_usd: 3000,
-                billing_cycle: 'One-time Project',
-                features: ['Full-stack Web / Mobile App', 'Basic Cloud Setup', 'API Integrations', '30-Day Post Launch Support'],
-                highlighted: false
+                tier_name: 'Website Development',
+                category: 'Website',
+                price_bdt: '৳25,000',
+                price_usd: 299,
+                billing_cycle: 'Starting From / Project',
+                description: 'High-conversion corporate, agency & e-commerce websites with dynamic CMS & modern UI.',
+                features: [
+                    'Custom Responsive Design & Modern UI',
+                    'Dynamic Admin Panel / CMS Control',
+                    'SEO & Speed Optimization (95+ Score)',
+                    'Free Domain & Cloud Hosting (1 Year)',
+                    'Security SSL & 1-Year Free Maintenance'
+                ],
+                highlighted: true,
+                icon: '🌐'
             },
             {
                 id: 'prc-002',
-                tier_name: 'Growth Scale System',
-                price_usd: 7500,
-                billing_cycle: 'Custom Scope',
-                features: ['Kubernetes Microservices', 'Custom AI LLM Integration', 'Penetration Testing & Security Audit', '99.9% SLA Guarantee'],
-                highlighted: true
+                tier_name: 'Software Development',
+                category: 'Software',
+                price_bdt: '৳75,000',
+                price_usd: 899,
+                billing_cycle: 'Custom Scope / System',
+                description: 'Tailored web applications, ERP, CRM & cloud software systems built for scaling businesses.',
+                features: [
+                    'Custom Business Workflow Automation',
+                    'Multi-Role Admin, Staff & Customer Portals',
+                    'Real-Time Cloud Database & Automated Backups',
+                    'RESTful API & Payment Gateway Integration',
+                    '24/7 Security Audit, SLA & Technical Support'
+                ],
+                highlighted: true,
+                icon: '💻'
             },
             {
                 id: 'prc-003',
-                tier_name: 'Enterprise Ecosystem',
-                price_usd: 18500,
-                billing_cycle: 'Annual Retainer',
-                features: ['Multi-cloud Terraform Deployment', '24/7 Managed SOC & Incident Response', 'Dedicated Solutions Architect', 'Custom MLOps Pipeline'],
-                highlighted: false
+                tier_name: 'Mobile App Development',
+                category: 'Mobile App',
+                price_bdt: '৳55,000',
+                price_usd: 699,
+                billing_cycle: 'Android & iOS Package',
+                description: 'Native-performance cross-platform Android & iOS mobile applications with backend APIs.',
+                features: [
+                    'Android & iOS App (Play Store & App Store)',
+                    'Smooth Native UX & Dark/Light Themes',
+                    'Push Notifications & Real-Time Sync',
+                    'Payment Gateway & SMS Gateway API',
+                    '6 Months Free App Maintenance & Support'
+                ],
+                highlighted: true,
+                icon: '📱'
             }
         ];
 
@@ -383,8 +413,8 @@ class DatabaseStore {
         this.inMemoryData.website_demos = [
             {
                 id: 'demo-001',
-                title: 'Global E-Commerce Storefront',
-                category: 'E-Commerce',
+                title: 'Global E-Commerce Storefront Website',
+                category: 'Website',
                 description: 'High-conversion online shopping platform with instant live search, cart management, and payment gateway.',
                 preview_url: 'https://www.ecomdrivebd.com',
                 image_url: 'assets/hero_graphic.jpg',
@@ -393,8 +423,8 @@ class DatabaseStore {
             },
             {
                 id: 'demo-002',
-                title: 'Enterprise SaaS Admin Portal',
-                category: 'SaaS',
+                title: 'Enterprise SaaS & ERP Admin Portal Software',
+                category: 'Software',
                 description: 'Real-time analytics dashboard with user role management, data charts, and dark mode theme.',
                 preview_url: '/admin.html',
                 image_url: 'assets/hero_graphic.jpg',
@@ -403,22 +433,42 @@ class DatabaseStore {
             },
             {
                 id: 'demo-003',
-                title: 'HealthTech Diagnostic Portal',
-                category: 'Healthcare',
+                title: 'HealthTech & Telehealth Mobile App',
+                category: 'Mobile App',
                 description: 'Patient management system with online appointment booking, doctor directory, and diagnostic reports.',
                 preview_url: '#',
                 image_url: 'assets/hero_graphic.jpg',
-                tags: ['HIPAA Compliant', 'AI Vision', 'Telehealth'],
+                tags: ['iOS & Android', 'HIPAA Compliant', 'AI Vision'],
                 featured: true
             },
             {
                 id: 'demo-004',
-                title: 'Corporate Digital Agency Suite',
-                category: 'Corporate',
+                title: 'Corporate Digital Agency Suite Website',
+                category: 'Website',
                 description: 'Sleek corporate portfolio with dynamic service showcase, video backgrounds, and cost calculator.',
                 preview_url: '/',
                 image_url: 'assets/hero_graphic.jpg',
                 tags: ['Glassmorphism', 'SEO Optimized', 'Fast Load'],
+                featured: true
+            },
+            {
+                id: 'demo-005',
+                title: 'Cloud Inventory & POS Retail Software',
+                category: 'Software',
+                description: 'Multi-store inventory tracking, barcode scanning, thermal receipt printing, and sales analytics.',
+                preview_url: '#',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['Electron', 'Node.js', 'PostgreSQL', 'Real-Time Sync'],
+                featured: true
+            },
+            {
+                id: 'demo-006',
+                title: 'Food Delivery & Logistics Mobile App',
+                category: 'Mobile App',
+                description: 'On-demand rider tracking app with GPS navigation, push notifications, and digital wallet payment.',
+                preview_url: '#',
+                image_url: 'assets/hero_graphic.jpg',
+                tags: ['Flutter', 'Firebase', 'Google Maps API', 'Stripe'],
                 featured: true
             }
         ];
@@ -509,10 +559,14 @@ class DatabaseStore {
 
         // --- 14. NAVIGATION ---
         this.inMemoryData.navigation = [
-            { id: 'nav-001', label: 'Services', url: '#services', order: 1, visible: true },
-            { id: 'nav-002', label: 'Portfolio', url: '#portfolio', order: 2, visible: true },
-            { id: 'nav-003', label: 'Cost Estimator', url: '#estimator', order: 3, visible: true },
-            { id: 'nav-004', label: 'Contact', url: '#contact', order: 4, visible: true }
+            { id: 'nav-001', label: 'Home', url: '#hero', order: 1, visible: true },
+            { id: 'nav-002', label: 'Project', url: '#project', order: 2, visible: true },
+            { id: 'nav-003', label: 'Service', url: '#service', order: 3, visible: true },
+            { id: 'nav-004', label: 'Website Demo', url: '#websitedemo', order: 4, visible: true },
+            { id: 'nav-005', label: 'Pricing', url: '#pricing', order: 5, visible: true },
+            { id: 'nav-006', label: 'Team', url: '#team', order: 6, visible: true },
+            { id: 'nav-007', label: 'Blog', url: '#blog', order: 7, visible: true },
+            { id: 'nav-008', label: 'Contact', url: '#contact', order: 8, visible: true }
         ];
 
         // --- 15. SEO CONFIG ---

@@ -28,14 +28,16 @@
                     <li><a href="#project">Project</a></li>
                     <li><a href="#service">Service</a></li>
                     <li><a href="#websitedemo">Website Demo</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#team">Team</a></li>
                     <li><a href="#blog">Blog</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
 
             <div class="nav-actions">
                 <button class="btn btn-secondary" id="themeToggleBtn" aria-label="Toggle Theme">🌙</button>
-                <a href="#project" class="btn btn-primary desktop-cta">Explore Projects</a>
+                <a href="#contact" class="btn btn-primary desktop-cta">Contact Us</a>
                 <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Menu">
                     <span class="dot"></span>
                     <span class="dot"></span>
@@ -51,9 +53,11 @@
                 <a href="#project" class="mobile-nav-link">💼 Project</a>
                 <a href="#service" class="mobile-nav-link">⚡ Service</a>
                 <a href="#websitedemo" class="mobile-nav-link">🌐 Website Demo</a>
+                <a href="#pricing" class="mobile-nav-link">🏷️ Pricing</a>
                 <a href="#team" class="mobile-nav-link">👥 Team</a>
                 <a href="#blog" class="mobile-nav-link">📝 Blog</a>
-                <a href="#project" class="btn btn-primary mobile-cta-btn">Explore Projects</a>
+                <a href="#contact" class="mobile-nav-link">📞 Contact</a>
+                <a href="#contact" class="btn btn-primary mobile-cta-btn">Contact Us</a>
             </nav>
         </div>
     </header>
@@ -221,10 +225,9 @@
 
             <div class="filter-bar" id="demoFilterBar">
                 <button class="filter-btn active" data-filter="All">All Demos</button>
-                <button class="filter-btn" data-filter="E-Commerce">E-Commerce</button>
-                <button class="filter-btn" data-filter="SaaS">SaaS & Admin</button>
-                <button class="filter-btn" data-filter="Healthcare">Healthcare</button>
-                <button class="filter-btn" data-filter="Corporate">Corporate</button>
+                <button class="filter-btn" data-filter="Website">Website Demo</button>
+                <button class="filter-btn" data-filter="Software">Software Demo</button>
+                <button class="filter-btn" data-filter="Mobile App">Mobile App Demo</button>
             </div>
 
             <div class="portfolio-grid" id="websiteDemosGrid">
@@ -233,8 +236,30 @@
         </div>
     </section>
 
-    <!-- STEP 5: TEAM (OUR EXPERT TEAM) -->
-    <section class="section-padding" id="team" style="background: rgba(15, 23, 42, 0.3);">
+    <!-- STEP 5: PRICING (WEBSITE, SOFTWARE & MOBILE APP PRICING) -->
+    <section class="section-padding" id="pricing" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">Transparent Pricing</span>
+                <h2 class="section-title">Website, Software & Mobile App Pricing</h2>
+                <p class="section-description">High-value, enterprise-grade engineering packages structured for startups, scaleups, and established businesses.</p>
+            </div>
+
+            <div class="filter-bar" id="pricingFilterBar">
+                <button class="filter-btn active" data-filter="All">All Packages</button>
+                <button class="filter-btn" data-filter="Website">Website Pricing</button>
+                <button class="filter-btn" data-filter="Software">Software Pricing</button>
+                <button class="filter-btn" data-filter="Mobile App">Mobile App Pricing</button>
+            </div>
+
+            <div class="services-grid" id="pricingGrid">
+                <!-- Loaded dynamically via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 6: TEAM (OUR EXPERT TEAM) -->
+    <section class="section-padding" id="team" style="background: rgba(15, 23, 42, 0.2);">
         <div class="container">
             <div class="section-header text-center">
                 <span class="section-tag">Leadership & Engineering</span>
@@ -248,7 +273,7 @@
         </div>
     </section>
 
-    <!-- STEP 6: BLOG (NEWS & TECHNICAL ARTICLES) -->
+    <!-- STEP 7: BLOG (NEWS & TECHNICAL ARTICLES) -->
     <section class="section-padding" id="blog">
         <div class="container">
             <div class="section-header text-center">
@@ -259,6 +284,90 @@
 
             <div class="portfolio-grid" id="blogsGrid">
                 <!-- Loaded dynamically via app.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- STEP 8: CONTACT (GET IN TOUCH & INQUIRY FORM) -->
+    <section class="section-padding" id="contact" style="background: rgba(15, 23, 42, 0.4);">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-tag">Direct Connection</span>
+                <h2 class="section-title">Contact Growth IT Solution</h2>
+                <p class="section-description">Have a project requirement or need customized pricing details? Contact our engineering team today.</p>
+            </div>
+
+            <div class="contact-grid">
+                <!-- Contact Info Cards -->
+                <div class="service-card" style="display: flex; flex-direction: column; gap: 24px;">
+                    <h3 style="font-size: 1.5rem; color: var(--text-heading); margin-bottom: 4px;">Get in Touch</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 8px;">We respond to all inquiries within 2 hours. Connect directly with our solutions architects.</p>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="service-icon-box" style="margin-bottom:0; width: 50px; height: 50px; flex-shrink:0;">📞</div>
+                        <div>
+                            <div style="font-weight:700; color: var(--text-heading); font-size:1.05rem;">Phone & WhatsApp</div>
+                            <div style="color: var(--text-muted); font-size:0.95rem;">+880 1700-000000 / +1 (800) 555-GROW</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="service-icon-box" style="margin-bottom:0; width: 50px; height: 50px; flex-shrink:0;">✉️</div>
+                        <div>
+                            <div style="font-weight:700; color: var(--text-heading); font-size:1.05rem;">Official Email</div>
+                            <div style="color: var(--text-muted); font-size:0.95rem;">info@growthitsolution.com</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="service-icon-box" style="margin-bottom:0; width: 50px; height: 50px; flex-shrink:0;">📍</div>
+                        <div>
+                            <div style="font-weight:700; color: var(--text-heading); font-size:1.05rem;">Headquarters</div>
+                            <div style="color: var(--text-muted); font-size:0.95rem;">Growth IT Tech Hub, Level 8, Dhaka, Bangladesh</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="service-icon-box" style="margin-bottom:0; width: 50px; height: 50px; flex-shrink:0;">⏰</div>
+                        <div>
+                            <div style="font-weight:700; color: var(--text-heading); font-size:1.05rem;">Working Hours</div>
+                            <div style="color: var(--text-muted); font-size:0.95rem;">Mon - Sat: 9:00 AM - 8:00 PM (24/7 SLA Support)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <div class="service-card">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 20px; color: var(--text-heading);">Send Message / Request Quote</h3>
+                    <form id="contactForm" style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--text-muted);">Your Full Name</label>
+                            <input type="text" id="contactName" class="input-field" placeholder="e.g. Tanvir Ahmed" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--text-muted);">Your Email Address</label>
+                            <input type="email" id="contactEmail" class="input-field" placeholder="e.g. tanvir@company.com" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--text-muted);">Interested Service / Inquiry Type</label>
+                            <select id="contactSubject" class="input-field" style="background: rgba(15, 23, 42, 0.9);">
+                                <option value="Website Development">Website Development</option>
+                                <option value="Software Development">Software Development</option>
+                                <option value="Mobile App Development">Mobile App Development</option>
+                                <option value="Cloud Architecture & AI">Cloud Architecture & AI</option>
+                                <option value="Custom Enterprise Solution">Custom Enterprise Solution</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.85rem; margin-bottom:6px; color:var(--text-muted);">Project Details or Question</label>
+                            <textarea id="contactMessage" class="input-field" placeholder="Tell us about your project requirements or budget..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 8px;">
+                            <span>Submit Message</span>
+                            <span>🚀</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -282,18 +391,20 @@
                         <li><a href="#project">Project</a></li>
                         <li><a href="#service">Service</a></li>
                         <li><a href="#websitedemo">Website Demo</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
                         <li><a href="#team">Team</a></li>
                         <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="footer-title">Solutions</h4>
                     <ul class="footer-links">
+                        <li><a href="#pricing">Website Development</a></li>
+                        <li><a href="#pricing">Software Development</a></li>
+                        <li><a href="#pricing">Mobile App Development</a></li>
                         <li><a href="#service">Cloud Architecture</a></li>
-                        <li><a href="#service">Enterprise AI</a></li>
-                        <li><a href="#service">Custom Web & Mobile</a></li>
-                        <li><a href="#service">Zero Trust Security</a></li>
                     </ul>
                 </div>
 
